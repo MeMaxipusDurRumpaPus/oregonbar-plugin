@@ -1,0 +1,76 @@
+openapi: 3.0.0
+info:
+  title: Oregon Judicial & Legal API
+  description: API for accessing Oregon courts, bar association, public records, and legal case data.
+  version: 1.0.0
+servers:
+  - url: https://api.courts.oregon.gov/v1/
+  - url: https://api.osbar.org/v1/
+  - url: https://api.oregon.gov/public-records/v1/
+  - url: https://api.umatillacounty.gov/courts/v1/
+  - url: https://api.umatillacounty.gov/sheriff/v1/
+  - url: https://api.oregonlegislature.gov/v1/
+  - url: https://www.courtlistener.com/api/rest/v3/
+  - url: https://api.case.law/v1/cases/
+paths:
+  /cases:
+    get:
+      summary: Retrieve legal case records
+      parameters:
+        - name: case_number
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: court
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+  /attorneys:
+    get:
+      summary: Retrieve attorney records from Oregon State Bar
+      parameters:
+        - name: bar_number
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+  /public-records:
+    get:
+      summary: Retrieve public legal records
+      parameters:
+        - name: record_type
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+components:
+  schemas:
+    Case:
+      type: object
+      properties:
+        case_number:
+          type: string
+        court:
+          type: string
+        status:
+          type: string
+    Attorney:
+      type: object
+      properties:
+        bar_number:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
